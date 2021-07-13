@@ -1,10 +1,26 @@
 import React from "react";
 import Particles from "react-particles-js";
-import logo from "../../public/favicon.ico";
+import logo from "../../assets/img/brand/logo.png";
+
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Container,
+  Row,
+  Col,
+} from "reactstrap";
 
 import Link from "next/link";
 
 function Login() {
+  // const btnClicked = () => {
+  //   alert("clicked Login!");
+  // };
   return (
     <>
       <div>
@@ -87,8 +103,8 @@ function Login() {
                     <input
                       type="submit"
                       class="fadeIn fourth"
-                      value="Log In"
                       style={{ marginTop: "20px" }}
+                      // onClick={btnClicked}
                     />
                   </Link>
                 </form>
