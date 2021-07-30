@@ -51,7 +51,7 @@ function User() {
       {
         label: "Name",
         field: "name",
-        width: 150,
+        width: 100,
         attributes: {
           "aria-controls": "DataTable",
           "aria-label": "Name",
@@ -60,12 +60,12 @@ function User() {
       {
         label: "Position",
         field: "position",
-        width: 270,
+        width: 100,
       },
       {
         label: "Office",
         field: "office",
-        width: 200,
+        width: 100,
       },
       {
         label: "Age",
@@ -77,12 +77,17 @@ function User() {
         label: "Start date",
         field: "date",
         sort: "disabled",
-        width: 150,
+        width: 100,
       },
       {
         label: "Salary",
         field: "salary",
         sort: "disabled",
+        width: 100,
+      },
+      {
+        label: "Action",
+        field: "action",
         width: 100,
       },
     ],
@@ -94,102 +99,15 @@ function User() {
         age: "61",
         date: "2011/04/25",
         salary: "$320",
-      },
-      {
-        name: "Finn Camacho",
-        position: "Support Engineer",
-        office: "San Francisco",
-        age: "47",
-        date: "2009/07/07",
-        salary: "$87",
-      },
-      {
-        name: "Serge Baldwin",
-        position: "Data Coordinator",
-        office: "Singapore",
-        age: "64",
-        date: "2012/04/09",
-        salary: "$138",
-      },
-      {
-        name: "Zenaida Frank",
-        position: "Software Engineer",
-        office: "New York",
-        age: "63",
-        date: "2010/01/04",
-        salary: "$125",
-      },
-      {
-        name: "Zorita Serrano",
-        position: "Software Engineer",
-        office: "San Francisco",
-        age: "56",
-        date: "2012/06/01",
-        salary: "$115",
-      },
-      {
-        name: "Jennifer Acosta",
-        position: "Junior Javascript Developer",
-        office: "Edinburgh",
-        age: "43",
-        date: "2013/02/01",
-        salary: "$75",
-      },
-      {
-        name: "Cara Stevens",
-        position: "Sales Assistant",
-        office: "New York",
-        age: "46",
-        date: "2011/12/06",
-        salary: "$145",
-      },
-      {
-        name: "Hermione Butler",
-        position: "Regional Director",
-        office: "London",
-        age: "47",
-        date: "2011/03/21",
-        salary: "$356",
-      },
-      {
-        name: "Lael Greer",
-        position: "Systems Administrator",
-        office: "London",
-        age: "21",
-        date: "2009/02/27",
-        salary: "$103",
-      },
-      {
-        name: "Jonas Alexander",
-        position: "Developer",
-        office: "San Francisco",
-        age: "30",
-        date: "2010/07/14",
-        salary: "$86",
-      },
-      {
-        name: "Shad Decker",
-        position: "Regional Director",
-        office: "Edinburgh",
-        age: "51",
-        date: "2008/11/13",
-        salary: "$183",
-      },
-      {
-        name: "Michael Bruce",
-        position: "Javascript Developer",
-        office: "Singapore",
-        age: "29",
-        date: "2011/06/27",
-        salary: "$183",
-      },
-      {
-        name: "Donna Snider",
-        position: "Customer Support",
-        office: "New York",
-        age: "27",
-        date: "2011/01/25",
-        salary: "$112",
+        action: (
+          <div className="justify-content-center text-center">
+            <button
+              className="btn btn-primary 
+            fas fa-solid fa-book"
+            ></button>
+            <button className="btn btn-danger fa fa-solid fa-trash"></button>
+          </div>
+        ),
       },
     ],
   });
