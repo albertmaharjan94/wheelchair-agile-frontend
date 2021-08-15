@@ -40,7 +40,14 @@ export default class MyApp extends App {
             href={require("assets/img/brand/favicon.ico")}
           />
           <title>Mobility Wheelchair</title>
-          <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css"
+          />
+          <link
+            href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css"
+            rel="stylesheet"
+          />
         </Head>
         <Layout>
           <Component {...pageProps} />

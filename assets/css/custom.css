@@ -292,3 +292,8 @@ input[type="text"]:placeholder {
   border-radius: 10px;
   box-shadow: 3px 3px 3px 3px rgb(206 209 222 / 50%);
 }
+
+.mapSearch {
+  width: 30%;
+  margin-bottom: 1%;
+}
