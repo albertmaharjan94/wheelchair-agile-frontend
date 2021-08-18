@@ -1,26 +1,67 @@
-import React from "react";
+import { React, useState } from "react";
 import Particles from "react-particles-js";
-import logo from "../../assets/img/brand/logo.png";
-
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
-
 import Link from "next/link";
+import Image from "next/image";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 function Login() {
-  // const btnClicked = () => {
-  //   alert("clicked Login!");
-  // };
+  const [state, setState] = useState({ email: "", password: "" });
+
+  const router = useRouter();
+
+  const changeHandler = (e) => {
+    const { email, password } = e.target;
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const loginSuccess = async () => {
+    await toast.success("Login Successfully!!!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const loginFail = async () => {
+    await toast.error("Login Failed!!!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const checkAdmin = (e) => {
+    // alert("ok");
+    e.preventDefault();
+    axios
+      .post(
+        "https://mobility-wheelchair-backend.herokuapp.com/api/admin/login",
+        state
+      )
+      .then((response) => {
+        if (response.data.success) {
+          loginSuccess();
+          router.push("/admin/dashboard");
+        } else {
+          loginFail();
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   return (
     <>
       <div>
@@ -74,12 +115,13 @@ function Login() {
           <div className="login-wrapper">
             <div class="wrapper fadeInDown">
               <div id="formContent">
-                <div class="fadeIn first">
-                  <img
-                    src={logo}
+                <div className="fadeIn first">
+                  <Image
                     id="icon"
+                    src="/logo.png"
                     alt="User Icon"
-                    style={{ margin: "25px" }}
+                    width="200px"
+                    height="100px"
                   />
                 </div>
 
@@ -89,6 +131,8 @@ function Login() {
                     id="email"
                     class="fadeIn second"
                     name="email"
+                    value={state.email}
+                    onChange={changeHandler}
                     placeholder="email@gmail.com"
                   />
                   <input
@@ -96,21 +140,24 @@ function Login() {
                     id="password"
                     class="fadeIn third"
                     name="password"
+                    value={state.password}
+                    onChange={changeHandler}
                     placeholder="password"
                   />
 
-                  <Link href="/admin/dashboard">
-                    <input
-                      type="submit"
-                      class="fadeIn fourth"
-                      style={{ marginTop: "20px" }}
-                      // onClick={btnClicked}
-                    />
-                  </Link>
+                  {/* <Link href="/admin/dashboard"> */}
+                  <input
+                    id="btnLogin"
+                    type="submit"
+                    class="fadeIn fourth"
+                    style={{ marginTop: "20px" }}
+                    onClick={checkAdmin}
+                  />
+                  {/* </Link> */}
                 </form>
 
                 <div id="formFooter">
-                  <a class="underlineHover " href="#">
+                  <a className="underlineHover " href="#">
                     Forgot Password?
                   </a>
                 </div>
@@ -119,6 +166,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
