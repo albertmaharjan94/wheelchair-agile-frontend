@@ -10,17 +10,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
   Collapse,
   DropdownMenu,
   DropdownItem,
-  UncontrolledDropdown,
   DropdownToggle,
-  FormGroup,
+  UncontrolledDropdown,
   Form,
   Input,
   InputGroupAddon,
@@ -32,14 +26,10 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Progress,
-  Table,
   Container,
   Row,
   Col,
 } from "reactstrap";
-
-var ps;
 
 function Sidebar(props) {
   // used for checking current route
@@ -64,7 +54,7 @@ function Sidebar(props) {
         <NavItem key={key} active={activeRoute(prop.layout + prop.path)}>
           <Link href={prop.layout + prop.path}>
             <NavLink
-              href="#pablo"
+              href={prop.layout + "/" + prop.path}
               active={activeRoute(prop.layout + prop.path)}
               onClick={closeCollapse}
             >
@@ -78,11 +68,11 @@ function Sidebar(props) {
   };
   const { routes, logo } = props;
   let navbarBrand = (
-    <NavbarBrand href="#pablo" className="pt-0">
+    <NavbarBrand href="/admin/dashboard" className="pt-0">
       <img
-        alt={logo.imgAlt}
+        alt={props.logo.imgAlt}
         className="navbar-brand-img"
-        src={logo.imgSrc}
+        src={"/logo.png"}
         style={{ maxHeight: "3.5rem" }}
       />
     </NavbarBrand>
@@ -136,7 +126,7 @@ function Sidebar(props) {
                 <span className="avatar avatar-sm rounded-circle">
                   <img
                     alt="..."
-                    src={require("assets/img/theme/team-1-800x800.jpg")}
+                    src="../../assets/img/theme/team-1-800x800.jpg"
                   />
                 </span>
               </Media>

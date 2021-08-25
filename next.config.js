@@ -24,3 +24,10 @@ module.exports = withFonts(
     )
   )
 );
+
+
+module.exports = {
+  webpack5: false
+}
+
+

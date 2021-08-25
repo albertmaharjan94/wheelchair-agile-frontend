@@ -1,30 +1,15 @@
-import React from "react";
+import React from 'react';
 import App from "next/app";
 import Head from "next/head";
-import "../assets/css/custom.css";
-
-import "assets/plugins/nucleo/css/nucleo.css";
+// import Script from 'next/script';
+import "../assets/scss/nextjs-argon-dashboard.scss";
+import "../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "assets/scss/nextjs-argon-dashboard.scss";
+import "../assets/css/custom.css";
+import '../styles/globals.css'
 
-export default class MyApp extends App {
-  componentDidMount() {
-    let comment = document.createComment(`
-
-`);
-    document.insertBefore(comment, document.documentElement);
-  }
-  static async getInitialProps({ Component, router, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-  render() {
-    const { Component, pageProps } = this.props;
+function MyApp({ Component, pageProps }) {
+  // const { Component, pageProps } = this.props;
 
     const Layout = Component.layout || (({ children }) => <>{children}</>);
 
@@ -37,7 +22,7 @@ export default class MyApp extends App {
           />
           <link
             rel="shortcut icon"
-            href={require("assets/img/brand/favicon.ico")}
+            href="/favicon.ico"
           />
           <title>Mobility Wheelchair</title>
           <link
@@ -54,5 +39,7 @@ export default class MyApp extends App {
         </Layout>
       </React.Fragment>
     );
-  }
+  // return <Component {...pageProps} />
 }
+
+export default MyApp

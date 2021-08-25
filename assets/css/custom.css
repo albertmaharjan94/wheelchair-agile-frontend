@@ -1,3 +1,4 @@
+
 .detailsTable table.mdb-dataTable thead th,
 table thead.mdb-dataTable-head th {
   font-size: 11px !important;
@@ -6,10 +7,10 @@ table thead.mdb-dataTable-head th {
 }
 
 .modal-cancel {
-  bottom: 20px;
+  bottom: 20px !important;
   /* top: 0; */
   position: absolute !important;
-  right: 31px;
+  right: 31px !important;
 }
 
 .dashHeading {
@@ -27,6 +28,11 @@ table thead.mdb-dataTable-head th {
   left: 0px;
 }
 
+.action{
+  padding-top: 8px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
 /* css for llogin */
 
 #formFooter a {
@@ -284,7 +290,7 @@ input[type="text"]:placeholder {
 }
 
 #icon {
-  width: 60%;
+  
 }
 
 .map {
@@ -294,6 +300,28 @@ input[type="text"]:placeholder {
 }
 
 .mapSearch {
-  width: 30%;
-  margin-bottom: 1%;
+  margin-bottom: 10px;
+  width: 350px;
+}
+
+.searchBox{
+  padding-left: 20px;
+  width: 350px;
+  font-weight: 700;
+}
+
+.searchContents{
+  width: 350px;
+  position: absolute !important;
+  z-index: 99999;
+  overflow-y: auto;
+  max-height: 400px;
+} 
+
+.search-content{
+  padding-top: 8px;
+  padding-left: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  border-top: 1px solid #e6e6e6;
 }

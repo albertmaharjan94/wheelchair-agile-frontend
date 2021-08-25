@@ -1,32 +1,82 @@
-import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import React, { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, CircleMarker } from "react-leaflet";
 
-import L from "leaflet";
-
-delete L.Icon.Default.prototype._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-  iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-});
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
+import 'leaflet-defaulticon-compatibility';
+import axios from "axios";
+import Avatar from "react-avatar";
+import { Card } from "react-bootstrap";
+import moment from "moment";
+// import mdbautocomplete
 
 function ShowMap() {
-  const position = [27.7172, 85.324];
+  const [trackers, setTrackers] = useState([]);
+  const [center, setCenterPosition] = useState([27.7052401, 85.3272271, 17]);
+  const [searchTracker, setSearchTracker] = useState([]);
+  const [map, setMap] = useState();
+  const [activeTracker, setActiveTracker] = useState();
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/tracker")
+      .then(response => {
+        setTrackers(response.data.trackers);
+      })
+      .catch(err => {
+        console.log("error", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (map !== undefined)
+      map.setView(center);
+  }, [center]);
+
+  const searchUser = (text) => {
+    let matchedTracker = [];
+    trackers.map(tracker => {
+      const regex = new RegExp(text, "gi");
+      if (tracker.user.fullname.match(regex) !== null && text !== "") {
+        return (
+          matchedTracker.push(tracker)
+        );
+      }
+    });
+    setSearchTracker(matchedTracker);
+  };
+
+  const setCenter = (data) => {
+    setCenterPosition(data.location.coordinates);
+    setActiveTracker(data);
+    console.log(map);
+  };
+
   return (
     <>
       <div className="mapSearch">
         <div className="input-group">
-          <input type="search" className="form-control" placeholder="Search" />
-          {/* <button className="btn btn-primary">
-            <i className="fas fa-search"></i>
-          </button> */}
+          <input type="search" className="searchBox form-control" placeholder="Search User" onChange={(e) => searchUser(e.target.value)} />
+        </div>
+        <div className=" searchContents">
+          {
+            searchTracker.length > 0 ?
+              <Card>
+                {searchTracker.map(data => {
+                  return <p className="search-content" onClick={() => setCenter(data)} >
+                      <strong>Name: {data.user.fullname}</strong> <br />
+                      Vehilce Number: {data.user.vehicle.vehicle_number}
+                    </p>
+                })}
+              </Card>
+              :
+              ""
+          }
         </div>
       </div>
 
       <MapContainer
-        center={position}
+        whenCreated={(map) => setMap(map)}
+        center={center}
         zoom={15}
         scrollWheelZoom={false}
         className="map"
@@ -36,11 +86,46 @@ function ShowMap() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <Marker className="userMarker" position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br />
-          </Popup>
-        </Marker>
+        {
+          trackers.map(tracker => {
+            return <Marker className="userMarker" position={tracker.location.coordinates}
+              eventHandlers={
+                {
+                  click: () => {
+                    setCenterPosition(tracker.location.coordinates);
+                    setActiveTracker(tracker);
+                  }
+                }
+              }
+            >
+              {/* <Popup>
+                <Avatar size="40" round={true} name={tracker.user.fullname}></Avatar>{" "}
+                Name: {tracker.user.fullname} <br />
+                Vehicle Type: {tracker.user.vehicle.vehicle_type} <br />
+                Vehicle Number: {tracker.user.vehicle.vehicle_number} <br />
+                Contact: {tracker.user.contact}
+              </Popup> */}
+            </Marker>;
+          })
+        }
+        {
+          center && activeTracker &&
+          <CircleMarker
+            center={center}
+            radius={5}
+          >
+            <Tooltip
+              direction="top" offset={[0, -50]} opacity={1} permanent
+            >
+              <Avatar size="40" round={true} name={activeTracker.user.fullname}></Avatar>{" "}
+              Name: {activeTracker.user.fullname} <br />
+              Vehicle Type: {activeTracker.user.vehicle.vehicle_type} <br />
+              Vehicle Number: {activeTracker.user.vehicle.vehicle_number} <br />
+              Contact: {activeTracker.user.contact} <br />
+              Seen: {moment(activeTracker.createdAt).fromNow()}
+            </Tooltip>
+          </CircleMarker>
+        }
       </MapContainer>
     </>
   );
