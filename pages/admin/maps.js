@@ -15,16 +15,18 @@ const ShowMap = dynamic(() => import("../../components/showMap"), {
 function Maps() {
   return (
     <>
-      <UserHeader />
-      {/* Page content */}
-      <Container className="mt--7" fluid>
-        <Row>
-          <div className="col">
-            <Card className="shadow border-0"></Card>
-            <ShowMap />
-          </div>
-        </Row>
-      </Container>
+      <div id="maps">
+        <UserHeader />
+        {/* Page content */}
+        <Container className="mt--7" fluid>
+          <Row>
+            <div className="col">
+              <Card className="shadow border-0"></Card>
+              <ShowMap />
+            </div>
+          </Row>
+        </Container>
+      </div>
     </>
   );
 }

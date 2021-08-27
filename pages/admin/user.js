@@ -28,7 +28,6 @@ function User() {
   const [userId, setSelectUser] = useState("");
 
   const setModalIsOpenToTrue = () => {
-    alert("clicked");
     setModalIsOpen(true);
   };
   const setModalIsOpenToFalse = () => {
@@ -115,6 +114,7 @@ function User() {
     var action = (
       <div className="justify-content-start text-start">
         <button
+          id="updateBtnUser"
           className="action btn btn-primary fas fa-solid fa-book"
           onClick={() => {
             setSelectUser(user._id);
@@ -122,6 +122,7 @@ function User() {
           }}
         ></button>
         <button
+          id="deleteBtnUser"
           className="action btn btn-danger fa fa-solid fa-trash"
           onClick={() => {
             setSelectUser(user._id);
@@ -196,148 +197,144 @@ function User() {
 
   return (
     <>
-      <UserHeader />
-      {/* Page content */}
+      <div id="userDetails">
+        <UserHeader />
+        {/* Page content */}
 
-      <Container className="mt--7" fluid>
-        {/* Table */}
-        <Row>
-          <div className="col">
-            <Card className="shadow">
-              <CardHeader className="border-0">
-                <div className="row">
-                  <h3 className="mb-0 col-lg-6">
-                    <strong>User Details</strong>
-                  </h3>
-                  <div className="col-lg-6 d-flex flex-row-reverse">
-                    <button
-                      className="btn btn-primary p-2"
-                      type="button"
-                      onClick={setModalIsOpenToTrue}
-                    >
-                      Add User
-                    </button>
+        <Container className="mt--7" fluid>
+          {/* Table */}
+          <Row>
+            <div className="col">
+              <Card className="shadow">
+                <CardHeader className="border-0">
+                  <div className="row">
+                    <h3 className="mb-0 col-lg-6">
+                      <strong>User Details</strong>
+                    </h3>
+                    <div className="col-lg-6 d-flex flex-row-reverse">
+                      <button
+                        id="add"
+                        className="btn btn-primary p-2"
+                        type="button"
+                        onClick={setModalIsOpenToTrue}
+                      >
+                        Add User
+                      </button>
+                    </div>
                   </div>
+                </CardHeader>
+
+                {/* Add User Model */}
+
+                <div style={{ padding: "20px" }}>
+                  <MDBDataTableV5
+                    className="detailsTable"
+                    hover
+                    scrollX
+                    entriesOptions={[5, 10, 15]}
+                    entries={5}
+                    pagesAmount={4}
+                    data={dataTable}
+                    searchTop
+                  />
                 </div>
-              </CardHeader>
-
-              {/* Add User Model */}
-
-              <div style={{ padding: "20px" }}>
-                <MDBDataTableV5
-                  className="detailsTable"
-                  hover
-                  scrollX
-                  entriesOptions={[5, 10, 15]}
-                  entries={5}
-                  pagesAmount={4}
-                  data={dataTable}
-                  searchTop
-                />
+              </Card>
+              {/* Modal for add User */}
+              <div id="addUserModal" className="AddUser">
+                <Modal
+                  show={modalIsOpen}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                  onHide={setModalIsOpenToFalse}
+                  style={{
+                    overlay: {
+                      justifyContent: "center",
+                      display: "flex",
+                    },
+                  }}
+                >
+                  <Modal.Header closeButton>
+                    <div className="w-100">
+                      <h1 className="text-center">Add User</h1>
+                    </div>
+                  </Modal.Header>
+                  <AddUser closeAddUser={setModalIsOpenToFalse} />
+                </Modal>
               </div>
-            </Card>
-            {/* Modal for add User */}
-            <div className="addUser">
-              <Modal
-                isOpen={modalIsOpen}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                style={{
-                  overlay: {
-                    justifyContent: "center",
-                    display: "flex",
-                  },
-                  content: {
-                    width: "50%",
-                    minHeight: "25%",
-                    margin: "auto",
-                    backgroundColor: "white",
-                    boxShadow: "5px 4px 20px 20px #0000000f",
-                    padding: "20px",
-                    position: "relative",
-                  },
-                }}
-                className="addUser"
-              >
-                <Modal.Header closeButton>
-                  <div className="w-100">
-                    <h1 className="text-center">Add User</h1>
-                  </div>
-                </Modal.Header>
-                <AddUser closeAddUser={setModalIsOpenToFalse} />
-              </Modal>
-            </div>
 
-            {/* Modal for Update User */}
-            <div className="updateUser">
-              <Modal
-                show={updateModal}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                onHide={setUpdateModalClose}
-                style={{
-                  overlay: {
-                    justifyContent: "center",
-                    display: "flex",
-                  },
-                }}
-              >
-                <Modal.Header closeButton>
-                  <div className="w-100">
-                    <h1 className="text-center">Update Vehicle</h1>
-                  </div>
-                </Modal.Header>
-                <UpdateUser
-                  closeUpdateUserModal={setUpdateModalClose}
-                  id={userId}
-                />
-              </Modal>
-            </div>
+              {/* Modal for Update User */}
+              <div id="updateModal" className="updateUser">
+                <Modal
+                  show={updateModal}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                  onHide={setUpdateModalClose}
+                  style={{
+                    overlay: {
+                      justifyContent: "center",
+                      display: "flex",
+                    },
+                  }}
+                >
+                  <Modal.Header closeButton>
+                    <div className="w-100">
+                      <h1 className="text-center">Update User</h1>
+                    </div>
+                  </Modal.Header>
+                  <UpdateUser
+                    closeUpdateUserModal={setUpdateModalClose}
+                    id={userId}
+                  />
+                </Modal>
+              </div>
 
-            {/* Delete User Modal */}
-            <div className="deleteVehicle">
-              <Modal
-                show={deleteModalIsOpen}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                onHide={setDeleteModalClose}
-                style={{
-                  overlay: {
-                    justifyContent: "center",
-                    display: "flex",
-                  },
-                }}
-              >
-                <Modal.Header closeButton>
-                  <div className="w-100">
-                    <h1 className="text-center">Delete</h1>
-                  </div>
-                </Modal.Header>
-                <Modal.Body>
-                  <strong>Are you sure you want to delete this user?</strong>
-                </Modal.Body>
-                <Modal.Footer>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => {
-                      deleteUser();
-                    }}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={setDeleteModalClose}
-                  >
-                    Close
-                  </button>
-                </Modal.Footer>
-              </Modal>
+              {/* Delete User Modal */}
+              <div id="deleteModal" className="deleteVehicle">
+                <Modal
+                  show={deleteModalIsOpen}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                  onHide={setDeleteModalClose}
+                  style={{
+                    overlay: {
+                      justifyContent: "center",
+                      display: "flex",
+                    },
+                  }}
+                >
+                  <Modal.Header closeButton>
+                    <div className="w-100">
+                      <h1 className="text-center">Delete</h1>
+                    </div>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <strong>Are you sure you want to delete this user?</strong>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button
+                      id="btnConfirmDelete"
+                      className="btn btn-danger"
+                      onClick={() => {
+                        deleteUser();
+                      }}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      id="btnConfirmCancel"
+                      className="btn btn-secondary"
+                      onClick={setDeleteModalClose}
+                    >
+                      Close
+                    </button>
+                  </Modal.Footer>
+                </Modal>
+              </div>
             </div>
-          </div>
-        </Row>
-      </Container>
-      <ToastContainer />
+          </Row>
+        </Container>
+        <ToastContainer />
+      </div>
     </>
   );
 }

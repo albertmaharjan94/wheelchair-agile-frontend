@@ -56,7 +56,7 @@ function Vehicle() {
       .catch((err) => {
         alert("Cannot retrieve vehicle");
       });
-  }, [Vehicle]);
+  }, [modalIsOpen]);
 
   const deleteVehicle = () => {
     alert("Delete");
@@ -77,6 +77,7 @@ function Vehicle() {
     var action = (
       <div className="justify-content-start text-start">
         <button
+          id="btnUpdate"
           className="action btn btn-primary fas fa-solid fa-book"
           onClick={() => {
             setSelectVehicle(vehicle._id);
@@ -84,6 +85,7 @@ function Vehicle() {
           }}
         ></button>
         <button
+          id="btnDelete"
           className="action btn btn-danger fa fa-solid fa-trash"
           onClick={() => {
             setSelectVehicle(vehicle._id);
@@ -142,7 +144,7 @@ function Vehicle() {
                     </h3>
                     <div className="col-lg-6 d-flex flex-row-reverse">
                       <button
-                        id="addVehicleDetails"
+                        id="btnVehicleAdd"
                         className="btn btn-primary p-2"
                         type="button"
                         onClick={setModalIsOpenToTrue}

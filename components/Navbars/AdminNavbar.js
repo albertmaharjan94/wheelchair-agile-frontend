@@ -12,10 +12,9 @@ import {
   Media,
 } from "reactstrap";
 import { useRouter } from "next/router";
-import Image from 'next/image'
+import Image from "next/image";
 
 function AdminNavbar({ brandText }) {
-
   const router = useRouter();
   return (
     <>
@@ -38,21 +37,25 @@ function AdminNavbar({ brandText }) {
                        width="200px" height="100px"
                    /> */}
                   </span>
-                  <Media className="ml-2 d-none d-lg-block">
+                  <Media className="ml-2 d-none d-lg-block" id="btnLogout">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Amanda Shrestha
+                      Raj Shrestha
                     </span>
                   </Media>
                 </Media>
               </DropdownToggle>
-              <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+              <DropdownMenu id="logout" className="dropdown-menu-arrow" right>
+                <DropdownItem onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
                   {/* <Link href="/"> */}
-                    <span onClick={() => { router.push('/admin/login'); }}>
-                      {/* Logout */}
-                      Logout
-                    </span>
+                  <span
+                    onClick={() => {
+                      router.push("/admin/login");
+                    }}
+                  >
+                    {/* Logout */}
+                    Logout
+                  </span>
                   {/* </Link> */}
                 </DropdownItem>
               </DropdownMenu>

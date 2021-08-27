@@ -34,6 +34,7 @@ function AddUser({ closeAddUser }) {
     axios
       .post("http://localhost:3001/api/auth/register", userdata)
       .then((response) => {
+        console.log(response);
         if (response.data.success) {
           addSuccess();
           closeAddUser();
@@ -275,11 +276,12 @@ function AddUser({ closeAddUser }) {
                         Vehicle:
                       </label>
                       <select
+                        id="select"
                         className="form-control col-sm-9"
                         name="vehicle"
                         onChange={changeHandler}
                       >
-                        <option value="">Select Vehicle ....</option>
+                        <option value="">Select Vehicle ..</option>
                         {vehicles.map((data) => {
                           return (
                             <option value={data._id}>
@@ -290,8 +292,9 @@ function AddUser({ closeAddUser }) {
                       </select>
                     </FormGroup>
                   </div>
-                  <div className="d-flex justify-content-center">
+                  <div id="btn" className="d-flex justify-content-center">
                     <Button
+                      id="userAdd"
                       className="btn btn-success"
                       // onClick={setModalIsOpenToFalse}
                       style={{ margin: "10px" }}
@@ -300,6 +303,7 @@ function AddUser({ closeAddUser }) {
                       Add
                     </Button>
                     <Button
+                      id="cancel"
                       className="btn btn-danger"
                       onClick={closeAddUser}
                       style={{ margin: "10px" }}

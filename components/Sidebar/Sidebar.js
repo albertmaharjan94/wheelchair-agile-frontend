@@ -54,7 +54,7 @@ function Sidebar(props) {
         <NavItem key={key} active={activeRoute(prop.layout + prop.path)}>
           <Link href={prop.layout + prop.path}>
             <NavLink
-              href={prop.layout + "/" + prop.path}
+              href={prop.layout+"/"+prop.path}
               active={activeRoute(prop.layout + prop.path)}
               onClick={closeCollapse}
             >

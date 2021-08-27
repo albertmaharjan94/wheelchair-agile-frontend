@@ -52,7 +52,7 @@ const Dashboard = () => {
       });
   };
 
-  useEffect(() => {
+    useEffect(() => {
     console.log("Selected user after set", selectedUser);
     try {
       if (selectedUser !== undefined) {
@@ -75,8 +75,8 @@ const Dashboard = () => {
   }, [selectedUser]);
 
   useEffect(() => {
-    console.log("select data", data);
-    console.log("select options", categories);
+    // console.log("select data", data);
+    // console.log("select options", categories);
     if (data !== undefined && categories !== undefined) {
       console.log("select data", data);
       console.log("select options", categories);
@@ -84,6 +84,7 @@ const Dashboard = () => {
       setOption(optionFun());
     }
   }, [data, categories]);
+
   const customerOption = users.map((user) => {
     return { value: user, label: user.fullname };
   });

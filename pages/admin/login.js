@@ -42,13 +42,9 @@ function Login() {
   };
 
   const checkAdmin = (e) => {
-    // alert("ok");
     e.preventDefault();
     axios
-      .post(
-        "https://mobility-wheelchair-backend.herokuapp.com/api/admin/login",
-        state
-      )
+      .post("http://localhost:3001/api/admin/login", state)
       .then((response) => {
         if (response.data.success) {
           loginSuccess();
@@ -64,7 +60,7 @@ function Login() {
 
   return (
     <>
-      <div>
+      <div id="loginPage">
         <div
           className="container-fluid"
           style={{
@@ -147,11 +143,11 @@ function Login() {
 
                   {/* <Link href="/admin/dashboard"> */}
                   <input
-                    id="btnLogin"
                     type="submit"
                     class="fadeIn fourth"
                     style={{ marginTop: "20px" }}
                     onClick={checkAdmin}
+                    id="btnLogin"
                   />
                   {/* </Link> */}
                 </form>

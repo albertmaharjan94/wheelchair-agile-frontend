@@ -14,9 +14,8 @@ function AddVehicle({ closeAddVehicleModal }) {
   });
 
   const addVehicle = () => {
-    alert("added");
     axios
-      .post("https://localhost:3001/admin/vehicle", vehicleData)
+      .post("http://localhost:3001/api/vehicle", vehicleData)
       .then((response) => {
         if (response.data.success) {
           closeAddVehicleModal();
@@ -63,7 +62,7 @@ function AddVehicle({ closeAddVehicleModal }) {
 
   return (
     <>
-      <div id="addVehicleModal">
+      <div id="vehcileDetails">
         <div>
           <div className="pl-lg-4" style={{ marginTop: "20px" }}>
             <Row>
@@ -76,12 +75,12 @@ function AddVehicle({ closeAddVehicleModal }) {
                     Vehicle Type
                   </label>
                   <select
+                    id="selectVehicleType"
                     className="form-control col-sm-9"
-                    id="#"
                     name="type"
                     onChange={changeHandler}
                   >
-                    <option selected>Select from this menu</option>
+                    <option selected>Select from this select menu</option>
                     <option value="Two Wheeler">Two Wheeler</option>
                     <option value="Four Wheeler">Four Wheeler</option>
                   </select>
@@ -89,15 +88,14 @@ function AddVehicle({ closeAddVehicleModal }) {
               </Col>
               <Col lg="6">
                 <FormGroup>
-                  <label className="form-control-label" htmlFor="input-email">
+                  <label className="form-control-label" htmlFor="input-number">
                     Vehicle Number
                   </label>
                   <Input
-                    id="vehicleNumber"
                     className="form-control-alternative"
                     id="input-email"
                     placeholder="123456789"
-                    type="text"
+                    type="number"
                     name="number"
                     onChange={changeHandler}
                   />
@@ -107,7 +105,7 @@ function AddVehicle({ closeAddVehicleModal }) {
           </div>
           <div className="d-flex justify-content-center">
             <Button
-              id="addButton"
+              id="addNewVehicle"
               className="btn btn-success"
               // onClick={setModalIsOpenToFalse}
               style={{ margin: "10px" }}
@@ -116,6 +114,7 @@ function AddVehicle({ closeAddVehicleModal }) {
               Add
             </Button>
             <Button
+              id="cancelVehicleAdd"
               className="btn btn-danger"
               onClick={closeAddVehicleModal}
               style={{ margin: "10px" }}
